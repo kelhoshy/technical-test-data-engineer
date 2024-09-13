@@ -1,4 +1,4 @@
-from classes_out import ListenHistoryOut, TracksOut, UsersOut
+from classes_out import ListenHistoryOut, TracksOut, UsersOut, TopSongsOut
 from fastapi import FastAPI, Query
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import RedirectResponse
@@ -33,7 +33,7 @@ async def overridden_swagger():
 
 data_range_observations = 1000
 generator = FakeDataGenerator(data_range_observations)
-tracks, users, listen_history = generator.generate_fake_data()
+tracks, users, listen_history, top_songs = generator.generate_fake_data()
 
 
 @app.get("/tracks", tags=["HTTP methods"])
@@ -50,5 +50,8 @@ async def get_users() -> Page[UsersOut]:
 async def get_listen_history() -> Page[ListenHistoryOut]:
     return paginate(listen_history)
 
+@app.get("/top_songs", tags=["HTTP methods"])
+async def get_top_songs() -> Page[TopSongsOut]:
+    return paginate(top_songs)
 
 add_pagination(app)

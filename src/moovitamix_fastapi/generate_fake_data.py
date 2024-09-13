@@ -5,7 +5,7 @@ test and must not be modified.
 
 import random
 
-from classes_out import ListenHistoryOut, TracksOut, UsersOut
+from classes_out import ListenHistoryOut, TracksOut, UsersOut, TopSongsOut
 
 
 class FakeDataGenerator:
@@ -41,6 +41,7 @@ class FakeDataGenerator:
             ListenHistoryOut.generate_fake()
             for _ in range(self.data_range_observations)
         ]
+        top_songs = [ TopSongsOut.generate_fake() for _ in range(100)]
 
         for index, item in enumerate(listen_history):
             random_tracks = random.sample(
@@ -53,4 +54,4 @@ class FakeDataGenerator:
                 updated_at=item.updated_at,
             )
 
-        return tracks, users, listen_history
+        return tracks, users, listen_history, top_songs

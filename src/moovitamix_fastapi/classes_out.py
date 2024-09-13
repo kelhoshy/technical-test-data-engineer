@@ -122,3 +122,30 @@ class ListenHistoryOut(BaseModel):
             created_at=created_at,
             updated_at=updated_at,
         )
+
+class TopSongsOut(BaseModel):
+    id: int = Field()
+    name: str = Field()
+    artist: str = Field()
+    songwriters: str = Field()
+    duration: str = Field()
+    genres: str = Field()
+    album: str = Field()
+    rank: int = Field()
+    created_at: datetime.datetime = Field()
+    updated_at: datetime.datetime = Field()
+
+    @classmethod
+    def generate_fake(cls) -> "TopSongsOut":
+        return cls(
+            id=fake.unique.random_int(min=1, max=100000),
+            name=fake.word(),
+            artist=fake.name(),
+            songwriters=fake.name(),
+            duration=fake.time(pattern="%M:%S"),
+            genres=fake.word(),
+            album=fake.word(),
+            rank=fake.unique.random_int(min=1, max=100),
+            created_at=fake.date_time_between(start_date="-1y", end_date="now"),
+            updated_at=fake.date_time_between(start_date="-1y", end_date="now"),
+        )
